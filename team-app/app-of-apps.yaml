@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: team-app-of-apps
+  namespace: team
+spec:
+  project: team
+  sources:
+    - repoURL: https://github.com/slarwise/argocd-mini
+      path: ./team
+      directory:
+        recurse: true
+  # Destination cluster and namespace to deploy the application
+  destination:
+    name: in-cluster
+    namespace: team
+  syncPolicy:
+    automated:
+      prune: true
